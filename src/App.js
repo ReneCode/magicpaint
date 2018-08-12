@@ -36,6 +36,11 @@ class App extends Component {
     })
   }
 
+  handleRemoveItem = (key) => {
+    const newItems = this.state.items.filter(item => item.key !== key);
+    this.setSource(newItems, newItems);
+  }
+
   handleToggleComplete = (key, complete) => {
     const newItems = this.state.items.map(item => {
       if (item.key !== key) {
@@ -97,6 +102,7 @@ class App extends Component {
                 <Row
                   key={key}
                   onComplete={(complete) => this.handleToggleComplete(key, complete)}
+                  onRemove={() => this.handleRemoveItem(key)}
                   {...value}
                 />
               )
