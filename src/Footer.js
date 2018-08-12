@@ -14,6 +14,7 @@ class Footer extends Component {
     const { filter } = this.props;
     return (
       <View style={styles.container}>
+        <Text>{this.props.count} count</Text>
         <View style={styles.filters}>
           <TouchableOpacity
             style={[styles.filter, filter === "ALL" && styles.selected]}
@@ -47,7 +48,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   filters: {
-    flex: 1,
     flexDirection: "row"
   },
   filter: {

@@ -47,7 +47,9 @@ class App extends Component {
 
   handleRemoveItem = (key) => {
     const newItems = this.state.items.filter(item => item.key !== key);
-    this.setSource(newItems, newItems);
+    this.setSource(newItems,
+      filterItems(this.state.filter, newItems)
+    );
   }
 
   handleToggleComplete = (key, complete) => {
@@ -61,7 +63,10 @@ class App extends Component {
         }
       }
     });
-    this.setSource(newItems, newItems);
+    this.setSource(
+      newItems,
+      filterItems(this.state.filter, newItems)
+    );
   }
 
   handleToggleAllComplete = () => {
@@ -72,7 +77,11 @@ class App extends Component {
         complete: complete
       }
     })
-    this.setSource(newItems, newItems, { allComplete: complete });
+    this.setSource(
+      newItems,
+      filterItems(this.state.filter, newItems),
+      { allComplete: complete }
+    );
   }
 
   handleAddItem = () => {
@@ -88,12 +97,16 @@ class App extends Component {
         complete: false
       }
     ];
-    this.setSource(newItems, newItems, { value: "" })
+    this.setSource(
+      newItems,
+      filterItems(this.state.filter, newItems),
+      { value: "" }
+    )
   }
 
   handleFilter = (filter) => {
     this.setSource(
-      this.state.items, 
+      this.state.items,
       filterItems(filter, this.state.items),
       { filter }
     );
@@ -135,6 +148,7 @@ class App extends Component {
           />
         </View>
         <Footer
+          count={filterItems("ACTIVE", this.state.items).length}
           filter={this.state.filter}
           onFilter={this.handleFilter}
         />
