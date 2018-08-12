@@ -13,6 +13,14 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Row from "./Row";
 
+const filterItems = (filter, items) => {
+  return items.filter(item => {
+    if (filter === "ALL") return true;
+    if (filter === "COMPLETED") return item.complete;
+    if (filter === "ACTIVE") return !item.complete;
+  })
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -23,6 +31,7 @@ class App extends Component {
     this.state = {
       allComplete: false,
       value: "",
+      filter: "ALL",
       items: [],
       dataSource: ds.cloneWithRows([])
     };
@@ -82,6 +91,14 @@ class App extends Component {
     this.setSource(newItems, newItems, { value: "" })
   }
 
+  handleFilter = (filter) => {
+    this.setSource(
+      this.state.items, 
+      filterItems(filter, this.state.items),
+      { filter }
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -117,7 +134,10 @@ class App extends Component {
             }}
           />
         </View>
-        <Footer />
+        <Footer
+          filter={this.state.filter}
+          onFilter={this.handleFilter}
+        />
       </View>
     )
   }
