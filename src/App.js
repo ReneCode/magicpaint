@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, ListView, Keyboard } from 'react-native';
+import { Platform, StyleSheet, Text, View, ListView, Keyboard, AsyncStorage } from 'react-native';
 
 import Header from "./Header";
 import Footer from "./Footer";
@@ -37,12 +37,25 @@ class App extends Component {
     };
   }
 
+  componentWillMount() {
+    AsyncStorage.getItem("items")
+      .then((json) => {
+        try {
+          const items = JSON.parse(json);
+          this.setSource(items, items);
+        } catch (e) {
+
+        }
+      })
+  }
+
   setSource = (items, itemsDatasource, otherState = {}) => {
     this.setState({
       ...otherState,
       items: items,
       dataSource: this.state.dataSource.cloneWithRows(itemsDatasource)
     })
+    AsyncStorage.setItem("items", JSON.stringify(items));
   }
 
   handleRemoveItem = (key) => {
