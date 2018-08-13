@@ -22,6 +22,7 @@
 
     myHandler() { .....}
 
-  or:
-   myHandler = () => { ... }
+  or (ES6):
+
+    myHandler = () => { ... }
 
