@@ -112,6 +112,14 @@ class App extends Component {
     );
   }
 
+  handleClearComplete = () => {
+    const newItems = filterItems("ACTIVE", this.state.items);
+    this.setSource(
+      newItems,
+      filterItems(this.state.filter, newItems),
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -151,6 +159,7 @@ class App extends Component {
           count={filterItems("ACTIVE", this.state.items).length}
           filter={this.state.filter}
           onFilter={this.handleFilter}
+          onClearComplete={this.handleClearComplete}
         />
       </View>
     )
