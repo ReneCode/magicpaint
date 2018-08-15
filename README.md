@@ -26,3 +26,8 @@
 
     myHandler = () => { ... }
 
+# PanResponder
+  https://egghead.io/lessons/react-react-native-panresponder-basics
+  https://github.com/joemaddalone/react-native-lessons/tree/master
+
+  
