@@ -8,8 +8,7 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, PanResponder } from 'react-native';
-
-import Canvas from 'react-native-canvas';
+import Svg, { Rect } from 'react-native-svg';
 
 class App extends Component {
   constructor(props) {
@@ -27,16 +26,16 @@ class App extends Component {
       // onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
 
       onPanResponderGrant: this.handleGrant,
-        // The gesture has started. Show visual feedback so the user knows
-        // what is happening!
+      // The gesture has started. Show visual feedback so the user knows
+      // what is happening!
 
-        // gestureState.d{x,y} will be set to zero now
+      // gestureState.d{x,y} will be set to zero now
 
       onPanResponderMove: this.handleMove,
-        // The most recent move distance is gestureState.move{X,Y}
+      // The most recent move distance is gestureState.move{X,Y}
 
-        // The accumulated gesture distance since becoming responder is
-        // gestureState.d{x,y}
+      // The accumulated gesture distance since becoming responder is
+      // gestureState.d{x,y}
 
       // onPanResponderTerminationRequest: (evt, gestureState) => true,
       onPanResponderRelease: this.handleEnd,
@@ -70,7 +69,6 @@ class App extends Component {
 
   handleMove = (evt, gestureState) => {
     const text = `dx: ${Math.floor(gestureState.dx)} dy:${Math.floor(gestureState.dy)}`
-    console.log(text)
 
     this.setState({
       text,
@@ -88,16 +86,7 @@ class App extends Component {
     })
   }
 
-  handleCanvas = (canvas) => {
-    const ctx = canvas.getContext('2d');
-    console.log("paint")
-    ctx.fillStyle = 'purple';
-    ctx.fillRect(this.state.dx, this.state.dy, 100, 100);
-  }
-
-
   render() {
-    console.log("render")
     return (
       <View
         ref="box"
@@ -105,7 +94,22 @@ class App extends Component {
         {...this.panResponder.panHandlers}
       >
         <Text style={styles.text}>{this.state.text}</Text>
-        <Canvas ref={this.handleCanvas} />
+        <Svg
+
+          height="100%"
+          width="100%"
+        >
+          <Rect
+            x={this.state.dx}
+            y={this.state.dy}
+            width="70"
+            height="70"
+            stroke="red"
+            strokeWidth="2"
+            fill="yellow"
+          />
+        </Svg>
+
       </View>
     )
   }
@@ -115,6 +119,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#6c5"
+  },
+  svg: {
+    flex: 1
   },
   box: {
     width: 80,
