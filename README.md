@@ -4,7 +4,14 @@
 
   https://github.com/browniefed/examples/tree/todo/togglecomplete/todo
 
-  
+
+# start 
+  ```
+  npm install
+  react-native run-android
+  ```
+
+
 # debugging
   int the android emulator press: cmd-m
 
@@ -30,4 +37,7 @@
   https://egghead.io/lessons/react-react-native-panresponder-basics
   https://github.com/joemaddalone/react-native-lessons/tree/master
 
-  
+# Painting
+  https://github.com/react-native-community/react-native-svg
+
+

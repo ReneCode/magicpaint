@@ -9,6 +9,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, PanResponder } from 'react-native';
 
+import Canvas from 'react-native-canvas';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -57,7 +59,9 @@ class App extends Component {
     console.log("start")
 
     this.setState({
-      text: `start`
+      text: `start`,
+      dx: gestureState.dx,
+      dy: gestureState.dy
     })
     this.refs.box.setNativeProps({
       backgroundColor: "lightgreen"
@@ -69,7 +73,9 @@ class App extends Component {
     console.log(text)
 
     this.setState({
-      text
+      text,
+      dx: gestureState.dx,
+      dy: gestureState.dy
     })
   }
 
@@ -82,7 +88,16 @@ class App extends Component {
     })
   }
 
+  handleCanvas = (canvas) => {
+    const ctx = canvas.getContext('2d');
+    console.log("paint")
+    ctx.fillStyle = 'purple';
+    ctx.fillRect(this.state.dx, this.state.dy, 100, 100);
+  }
+
+
   render() {
+    console.log("render")
     return (
       <View
         ref="box"
@@ -90,6 +105,7 @@ class App extends Component {
         {...this.panResponder.panHandlers}
       >
         <Text style={styles.text}>{this.state.text}</Text>
+        <Canvas ref={this.handleCanvas} />
       </View>
     )
   }
